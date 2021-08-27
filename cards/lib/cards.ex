@@ -11,8 +11,6 @@ defmodule Cards do
     "#{person} of #{value}"
    end
 
-
-
   end
 
   def shuffle (deck) do
@@ -20,9 +18,30 @@ defmodule Cards do
   end
 
 
+  def deal(decks,hand) do
+    Enum.split(decks,hand)
+  end
+
   def contains?(deck,card) do
     Enum.member?(deck,card)
   end
 
+  def save(deck,filename) do
+    binary = :erlang.term_to_binary(deck)
+    File.write(filename,binary)
+  end
+
+  def read(filename) do
+    # read the file from the file system
+    {status,binary} = File.read(filename)
+    # convert the binary into a normal text format.
+    case status do
+       :ok-> :erlang.binary_to_term binary
+       :error-> "Sorry the file does not exist"
+
+    end
+
+
+  end
 
 end

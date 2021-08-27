@@ -33,15 +33,23 @@ defmodule Cards do
 
   def read(filename) do
     # read the file from the file system
-    {status,binary} = File.read(filename)
-    # convert the binary into a normal text format.
-    case status do
-       :ok-> :erlang.binary_to_term binary
-       :error-> "Sorry the file does not exist"
-
+    # convert the binary into a normal text format. This is a two way comparison.
+    # we are comparing both the values and assigning it at the same time.
+    case File.read(filename) do
+       {:ok,binary} -> :erlang.binary_to_term binary
+       {:error, _reason}-> "Sorry the file does not exist"
     end
+  end
+
+  def creat_hand(hand) do
+    # using pipe operator
+    Cards.create_deck |> Cards.shuffle |> Cards.deal(hand)
+  end
 
 
+  def maps do
+   obj= %{name: "Kenneth",age: 24}
+   obj
   end
 
 end

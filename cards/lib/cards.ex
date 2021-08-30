@@ -52,4 +52,11 @@ defmodule Cards do
    obj
   end
 
+
+  def cases do
+     case 1 do
+        x when hd(x) -> "Won't match"
+        x -> "Got #{x}"
+      end
+  end
 end
